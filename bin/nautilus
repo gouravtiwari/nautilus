@@ -2,7 +2,7 @@
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'rubygems'
 require 'nautilus'
-
+require 'fileutils'
 
 def usage
   "Usage: #{File.basename(__FILE__)} create new_project_name"
@@ -15,6 +15,7 @@ when 'create', '--create'
     Nautilus.search_and_replace(file, "nautilus", ARGV[1])
     Nautilus.search_and_replace(file, "Nautilus", ARGV[1].capitalize)
   end
+  FileUtils.rm_rf ("#{ARGV[1]}/.git")
 when 'help', '--help'
   puts usage
 else
