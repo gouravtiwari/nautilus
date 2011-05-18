@@ -12,7 +12,8 @@ case ARGV[0]
 when 'create', '--create'
   Nautilus.run("git clone git@github.com:newtonlabs/nautilus-project.git #{ARGV[1]}")
   Dir.glob("#{ARGV[1]}/**/*").each do |file|
-    Nautilus.search_and_replace(file, "sscnautilus", ARGV[1])
+    Nautilus.search_and_replace(file, "nautilus", ARGV[1])
+    Nautilus.search_and_replace(file, "Nautilus", ARGV[1].capitalize)
   end
 when 'help', '--help'
   puts usage

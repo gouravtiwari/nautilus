@@ -1,6 +1,7 @@
 require 'nautilus/worker'
 
 module Nautilus
+  
   def self.run(cmd)
     puts "Running '#{cmd}'"
     out = `#{cmd}`
