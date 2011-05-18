@@ -15,7 +15,12 @@ when 'create', '--create'
     Nautilus.search_and_replace(file, "nautilus", ARGV[1])
     Nautilus.search_and_replace(file, "Nautilus", ARGV[1].capitalize)
   end
-  FileUtils.rm_rf ("#{ARGV[1]}/.git")
+  
+  # Clear git history
+  FileUtils.rm_rf ("#{ARGV[1]}/`.git")
+  
+  # TODO Change the secret_token.rb
+  # Nautilus.search_and_replace secret_token.rb
 when 'help', '--help'
   puts usage
 else
