@@ -21,6 +21,15 @@ when 'create', '--create'
   
   # TODO Change the secret_token.rb
   # Nautilus.search_and_replace secret_token.rb
+  
+  Dir.chdir(ARGV[1]) or fail("Couldn't change to #{ARGV[1]}")
+  
+  rake_cmd = RUBY_PLATFORM =~ /mswin/ ? "rake.bat" : "rake"
+  
+  Nautilus.run("#{rake_cmd} db:create")
+  Nautilus.run("#{rake_cmd} db:create RAILS_ENV=test")
+  Nautilus.run("#{rake_cmd} db:migrate")
+  
 when 'help', '--help'
   puts usage
 else
