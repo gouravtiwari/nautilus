@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = Nautilus::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Thomas Newton"]
-  s.email       = ["tnewton@gmail.comß"]
+  s.email       = ["tnewton@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{Create a shell project to get started rapidly}
   s.description = %q{Get developing quickly}
