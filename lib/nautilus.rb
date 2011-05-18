@@ -1,7 +1,4 @@
-require 'nautilus/worker'
-
-module Nautilus
-  
+module Nautilus  
   def self.run(cmd)
     puts "Running '#{cmd}'"
     out = `#{cmd}`
@@ -22,3 +19,5 @@ module Nautilus
     end
   end
 end
+
+require 'nautilus/errors'

@@ -1,8 +1,12 @@
 #!/usr/bin/env ruby
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require File.expand_path(File.dirname(__FILE__) + "/../lib/nautilus/create.rb")
+require File.expand_path(File.dirname(__FILE__) + "/../lib/nautilus/errors.rb")
+
+include Nautilus::Errors
+
 require 'rubygems'
 require 'nautilus'
-require 'fileutils'
 
 def usage
   "Usage: #{File.basename(__FILE__)} create new_project_name"
@@ -10,26 +14,11 @@ end
 
 case ARGV[0]
 when 'create', '--create'
-  Nautilus.run("git clone git@github.com:newtonlabs/nautilus-project.git #{ARGV[1]}")
-  Dir.glob("#{ARGV[1]}/**/*").each do |file|
-    Nautilus.search_and_replace(file, "nautilus", ARGV[1])
-    Nautilus.search_and_replace(file, "Nautilus", ARGV[1].capitalize)
+  begin
+    Nautilus::Create.run!(ARGV[1])
+  rescue Nautilus::InvalidInput => e
+    error_with_message(e.message)
   end
-  
-  # Clear git history
-  FileUtils.rm_rf ("#{ARGV[1]}/`.git")
-  
-  # TODO Change the secret_token.rb
-  # Nautilus.search_and_replace secret_token.rb
-  
-  Dir.chdir(ARGV[1]) or fail("Couldn't change to #{ARGV[1]}")
-  
-  rake_cmd = RUBY_PLATFORM =~ /mswin/ ? "rake.bat" : "rake"
-  
-  Nautilus.run("#{rake_cmd} db:create")
-  Nautilus.run("#{rake_cmd} db:create RAILS_ENV=test")
-  Nautilus.run("#{rake_cmd} db:migrate")
-  
 when 'help', '--help'
   puts usage
 else
