@@ -21,3 +21,4 @@ module Nautilus
 end
 
 require 'nautilus/errors'
+require 'nautilus/create'

@@ -1,5 +1,5 @@
 require 'fileutils'
-require File.expand_path(File.dirname(__FILE__) + "nautilus/errors")
+require File.expand_path(File.dirname(__FILE__) + "/errors")
 
 module Nautilus
   class Create

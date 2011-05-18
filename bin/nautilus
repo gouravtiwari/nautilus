@@ -1,12 +1,7 @@
 #!/usr/bin/env ruby
-
-require File.expand_path(File.dirname(__FILE__) + "/../lib/nautilus/create.rb")
-require File.expand_path(File.dirname(__FILE__) + "/../lib/nautilus/errors.rb")
-
-include Nautilus::Errors
-
 require 'rubygems'
 require 'nautilus'
+include Nautilus::Errors
 
 def usage
   "Usage: #{File.basename(__FILE__)} create new_project_name"
