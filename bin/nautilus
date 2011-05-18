@@ -3,4 +3,19 @@ $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'rubygems'
 require 'nautilus'
 
-puts Nautilus.ipsum
+
+def usage
+  "Usage: #{File.basename(__FILE__)} create new_project_name"
+end
+
+case ARGV[0]
+when 'create', '--create'
+  Nautilus.run("git clone git@github.com:newtonlabs/nautilus-project.git #{ARGV[1]}")
+  Dir.glob("#{ARGV[1]}/**/*").each do |file|
+    Nautilus.search_and_replace(file, "sscnautilus", ARGV[1])
+  end
+when 'help', '--help'
+  puts usage
+else
+  puts "Unknown subcommand: #{ARGV[0]}\n#{usage}"
+end
