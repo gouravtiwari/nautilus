@@ -25,18 +25,15 @@ module Nautilus
       end
 
       # Clear git history
-      FileUtils.rm_rf ("#{project_path}/.git")
+      FileUtils.rm_rf("#{project_path}/.git")
 
       # TODO Change the secret_token.rb
       # Nautilus.search_and_replace secret_token.rb
 
       Dir.chdir(project_path) or fail("Couldn't change to #{project_path}")
 
-      rake_cmd = RUBY_PLATFORM =~ /mswin/ ? "rake.bat" : "rake"
+      puts readme
 
-      Nautilus.run("#{rake_cmd} db:create")
-      Nautilus.run("#{rake_cmd} db:create RAILS_ENV=test")
-      Nautilus.run("#{rake_cmd} db:migrate")
     end
 
     private
@@ -57,6 +54,20 @@ module Nautilus
       if File.exists?(full_path)
         raise InvalidInput.new("Project directory (#{project_path}) already exists")
       end
+    end
+    
+    def readme
+      <<-TEXT
+
+      Your project is created and you are ready to start coding on your local! Execute the following
+      (Setup your .rvmrc if you use that pattern first!)
+        * cd #{project_path}
+        * bundle install
+        * rake db:create:all
+        * rake db:migrate
+
+      TEXT
+      
     end
   end
 end
